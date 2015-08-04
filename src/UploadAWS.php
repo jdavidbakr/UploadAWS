@@ -159,7 +159,7 @@ class UploadAWS {
         // Downloads a local copy of the file.
         $pieces = explode(".", $this->location);
         $this->local_file = tempnam(sys_get_temp_dir(), 'awsupload') . '.' . $pieces[count($pieces) - 1];
-        $s3 = AWS::get('s3');
+        $s3 = AWS::createClient('s3');
         $s3->getObject(
                 array(
                     'Bucket' => $this->bucket,
@@ -204,7 +204,7 @@ class UploadAWS {
         $dir = date("Ym");
         $file_split = explode(".", $name);
         $extension = $file_split[count($file_split) - 1];
-        $s3 = AWS::get('s3');
+        $s3 = AWS::createClient('s3');
         do {
             $filename = substr(base64_encode(md5(uniqid(rand()))), 0, 8) . "." . $extension;
         } while ($s3->doesObjectExist($this->bucket, $dir . '/' . $filename));
@@ -233,7 +233,7 @@ class UploadAWS {
 		// Round to the nearest 1,000 seconds so we can utilize some level of browser cache
         $time = intval(ceil($time / 1000) * 1000);
         $opt['https'] = true;
-        $s3 = AWS::get('s3');
+        $s3 = AWS::createClient('s3');
         $url = $s3->getObjectURL($this->bucket, $this->location, $time, $opt);
         return $url;
 	}
@@ -506,7 +506,7 @@ class UploadAWS {
 	 */
 	public function delete()
 	{
-		$s3 = AWS::get('s3');
+		$s3 = AWS::createClient('s3');
         $s3->deleteObject(
                 array(
                     'Bucket' => $this->bucket,

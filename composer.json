@@ -11,8 +11,8 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "jdavidbakr\\UploadAWS": "src/"
+        "psr-4": {
+            "jdavidbakr\\UploadAWS\\": "src/"
         }
     }
 }
