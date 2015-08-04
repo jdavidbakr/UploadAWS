@@ -1,0 +1,13 @@
+{
+    "name": "jdavidbakr/upload-aws",
+    "description": "A service that manages file uploads and sends them to AWS.  Utilities include several image processing functions.",
+    "require": {
+        "aws/aws-sdk-php-laravel": "~3.0"
+    },
+    "authors": [
+        {
+            "name": "Jon Baker",
+            "email": "me@jdavidbaker.com"
+        }
+    ]
+}
