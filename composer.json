@@ -9,5 +9,10 @@
             "name": "Jon Baker",
             "email": "me@jdavidbaker.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0": {
+            "jdavidbakr\\UploadAWS": "src/"
+        }
+    }
 }
