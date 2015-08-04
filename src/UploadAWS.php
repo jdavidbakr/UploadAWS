@@ -234,7 +234,12 @@ class UploadAWS {
         $time = intval(ceil($time / 1000) * 1000);
         $opt['https'] = true;
         $s3 = AWS::createClient('s3');
-        $url = $s3->getObjectURL($this->bucket, $this->location, $time, $opt);
+        $cmd = $s3->getCommand('GetObject', [
+            'Bucket' => $this->bucket,
+            'Key'    => $this->location
+        ]);
+        $request = $s3->createPresignedRequest($cmd, $time);
+        $url = (string) $request->getUri();;
         return $url;
 	}
 
