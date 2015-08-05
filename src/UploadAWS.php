@@ -222,6 +222,20 @@ class UploadAWS {
 	}
 
 	/**
+     * Retrieve the URL that will download the file as an attachment using the given filename
+     * @param  string  $filename 
+     * @param  array   $opt      
+     * @param  integer $expire   
+     * @return string            Signed URL
+     */
+    public function get_download_url($filename, $opt = array(), $expire = 2000)
+    {
+        // Add to the $opt array the info we need to perform the download as an attachment
+        $opt['ResponseContentDisposition'] = "attachment; filename={$filename}";
+        return $this->get_url($opt, $expire);
+    }
+
+    /**
 	 * Generates a signed URL for the object.
 	 * @param  array   $opt    Options to pass to getObjectURL
 	 * @param  integer $expire Number of seconds to expire
@@ -234,12 +248,11 @@ class UploadAWS {
         $time = intval(ceil($time / 1000) * 1000);
         $opt['https'] = true;
         $s3 = AWS::createClient('s3');
-        $cmd = $s3->getCommand('GetObject', [
-            'Bucket' => $this->bucket,
-            'Key'    => $this->location
-        ]);
+        $opt['Bucket'] = $this->bucket;
+        $opt['Key'] = $this->location;
+        $cmd = $s3->getCommand('GetObject', $opt);
         $request = $s3->createPresignedRequest($cmd, $time);
-        $url = (string) $request->getUri();;
+        $url = (string) $request->getUri();
         return $url;
 	}
 
