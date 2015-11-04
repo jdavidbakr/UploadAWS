@@ -1,5 +1,9 @@
 # UploadAWS
 
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Total Downloads][ico-downloads]][link-downloads]
+
 A wrapper class to handle images and uploading them to AWS. Features such as resizing, cropping, etc are included.  A random remote filename is generated, if you want to retain the original filename you should do so in the database.  This is to prevent file name collisions remotely; the class passes back the random remote filename.
 
 Requires the PHP-GD library.
@@ -44,3 +48,12 @@ $upload->delete();
 // Get the actual size of the file
 $upload->get_file_size();
 ```
+
+[ico-version]: https://img.shields.io/packagist/v/jdavidbakr/upload-aws.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/jdavidbakr/upload-aws.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/jdavidbakr/upload-aws
+[link-downloads]: https://packagist.org/packages/jdavidbakr/upload-aws
+[link-author]: https://github.com/jdavidbakr
+[link-contributors]: ../../contributors
