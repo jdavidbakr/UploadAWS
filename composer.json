@@ -4,7 +4,7 @@
     "license": "MIT",
     "require": {
         "aws/aws-sdk-php-laravel": "~3.0",
-        "ext-gd": "*",
+        "ext-gd": "*"
     },
     "authors": [
         {
