@@ -3,7 +3,8 @@
     "description": "A service that manages file uploads and sends them to AWS.  Utilities include several image processing functions.",
     "license": "MIT",
     "require": {
-        "aws/aws-sdk-php-laravel": "~3.0"
+        "aws/aws-sdk-php-laravel": "~3.0",
+        "ext-gd": "*",
     },
     "authors": [
         {
