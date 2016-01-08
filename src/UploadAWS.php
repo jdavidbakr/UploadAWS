@@ -78,7 +78,7 @@ class UploadAWS {
      */
 	public function new_local_file_name()
 	{
-		$name = tempnam(sys_get_tem_dir(), 'awsupload');
+		$name = sys_get_temp_dir().'/'.str_random(32);
 		return $name;
 	}
 
@@ -158,9 +158,9 @@ class UploadAWS {
         $this->delete_local_file();
         // Downloads a local copy of the file.
         $pieces = explode(".", $this->location);
-        $this->local_file = tempnam(sys_get_temp_dir(), 'awsupload') . '.' . $pieces[count($pieces) - 1];
+        $this->local_file = sys_get_temp_dir().'/'.str_random(32) . '.' . $pieces[count($pieces) - 1];
         $s3 = AWS::createClient('s3');
-        $s3->getObject(
+        $result = $s3->getObject(
                 array(
                     'Bucket' => $this->bucket,
                     'Key' => $this->location,
@@ -172,8 +172,10 @@ class UploadAWS {
         do {
             $old_size = $size;
             sleep(0.25);
-            $size = filesize($this->local_file);
-        } while ($old_size != $size);
+            if(file_exists($this->local_file)) {
+                $size = filesize($this->local_file);
+            }
+        } while ($old_size < 0 && $old_size != $size);
 	}
 
 	/**
@@ -503,7 +505,8 @@ class UploadAWS {
         if (!empty($prefix)) {
             $dir = "{$prefix}/{$dir}";
         }
-        upload_aws2::$client->copyObject(
+        $s3 = AWS::createClient('s3');
+        $result = $s3->copyObject(
                 array(
                     'Bucket' => $this->bucket,
                     'CopySource' => $this->bucket . '/' . $this->location,
