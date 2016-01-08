@@ -283,7 +283,7 @@ class UploadAWS {
 	 * @param  integer $weight 
 	 * @return null         
 	 */
-	public function resize_image($width, $weight)
+	public function resize_image($width, $height)
 	{
         $image_size = $this->image_size();
         if ($image_size[0] == $width && $image_size[1] == $height) {
