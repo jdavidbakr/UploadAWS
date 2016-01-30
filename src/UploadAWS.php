@@ -25,7 +25,7 @@ class UploadAWS {
     protected $encryption = 'AES256';
 
     /**
-     * Constructor accepts a array (as passed by a $_FILES data from a form)
+     * Constructor accepts an object of Symfony\Component\HttpFoundation\File\UploadedFile
      * or a string (to reference an existing file in the store)
      * @param UploadedFile/string  $file   
      * @param string $bucket
